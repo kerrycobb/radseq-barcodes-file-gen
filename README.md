@@ -20,5 +20,3 @@ The naming of the read 1 enzyme is confusing as the enzymes are named for
 the enzyme doing the adapter dimer cutting rather than the enzyme cutting the 
 DNA. If not using the third adapter dimer cutting enzyme, the name of 
 the read 1 enzyme will not correspond with the enzyme that you used. 
-
-The read1-tags.tsv and read2-tags.tsv files are no longer being used by the script. 
