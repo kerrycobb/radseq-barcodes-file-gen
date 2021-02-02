@@ -60,10 +60,12 @@ def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False,
     # Rename "barcode_sequence" columns
     read1_df = read1_df.rename(columns={
         "barcode_sequence": "read1_barcode_sequence",
+        "enzyme": "read1_enzyme",
         "barcode_id": "read1_barcode_id",
         "position": "row"})
     read2_df = read2_df.rename(columns={
         "barcode_sequence": "read2_barcode_sequence",
+        "enzyme": "read2_enzyme",
         "barcode_id": "read2_barcode_id",
         "position": "column"})
 
