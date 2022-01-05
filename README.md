@@ -3,6 +3,8 @@ Replace values in the sample_id column of the `template.csv` file. File
 can contain other data as well. It must at least have the columns found
 in the `template.csv` file.
 
+Requires the packages `fire` and `pandas`.
+
 Run:
 ```bash
 ./generate_barcodes.py <csv file> <read1 enzyme> <read2 enzyme> 
