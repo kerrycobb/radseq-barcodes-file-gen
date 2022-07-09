@@ -14,6 +14,8 @@ as well as other data from the input file.
 
 It also outputs a tab delimited barcodes file for each plate which can be used with Stacks or ipyrad
 
+The i7-indexes.tsv file contains the i7 index sequences. This file can be edited for demultiplexing i7 indexes.
+
 # Notes
 Read 1 corresponds to i7 end of read
 Read 2 corresponds to i5 end of read
