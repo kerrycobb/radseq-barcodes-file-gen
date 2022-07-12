@@ -4,7 +4,7 @@ import pandas as pd
 import fire
 
 def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False, 
-        reverse_read2=False):
+        reverse_read2=False, id_last=True):
     """
     Read 1 corresponds with i5 end of read, and rows on plate
     Read 2 corresponds with i7 end of read, and columns on plate
@@ -21,6 +21,8 @@ def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False,
     Generates a barcodes file for each plate.
 
     Use the reverse options if you loaded the adapters on to a plate backwards
+
+    Change id_last to False if you want the id in the first column of the barcodes file.
     """ 
     # Check inputs
     if read1_enzyme not in ["nhei", "clai"]:
@@ -80,7 +82,11 @@ def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False,
     df.to_csv("out.csv", index=False)
     
     # Output barcodes files for stacks/ipyrad 
-    cols = ["read1_barcode_sequence", "read2_barcode_sequence", "sample_id"]
+    if id_last:
+        cols = ["read1_barcode_sequence", "read2_barcode_sequence", "sample_id"]
+    else:
+        cols = ["sample_id", "read1_barcode_sequence", "read2_barcode_sequence"]
+
     for group, data in df.groupby("plate_id"):
         group_df = data[cols]
         filename = "tags-indiv-{}.tsv".format(group)

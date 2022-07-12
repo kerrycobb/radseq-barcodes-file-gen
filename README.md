@@ -7,14 +7,18 @@ Requires the packages `fire` and `pandas`.
 
 Run:
 ```bash
-./generate_barcodes.py <csv file> <read1 enzyme> <read2 enzyme> 
+./generate_barcodes.py <csv file> <read1 enzyme> <read2 enzyme> [options] 
 ```
 Script outputs a single csv file called `out.csv` that contains the bar code sequences 
 as well as other data from the input file.
 
-It also outputs a tab delimited barcodes file for each plate which can be used with Stacks or ipyrad
+It also outputs a tab delimited barcodes file for each plate which can be used with Stacks or ipyrad.
+`--id_last True` will put the id in the last column of barcodes file will setting it to `False` will 
+put it in the first column. 
 
 The i7-indexes.tsv file contains the i7 index sequences. This file can be edited for demultiplexing i7 indexes.
+
+Run `./generaty_barcodes.py --help` for complete list of options.
 
 # Notes
 Read 1 corresponds to i7 end of read
