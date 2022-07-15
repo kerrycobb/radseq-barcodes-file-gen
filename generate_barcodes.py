@@ -4,7 +4,7 @@ import pandas as pd
 import fire
 
 def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False, 
-        reverse_read2=False, id_last=True):
+        reverse_read2=False, id_last=True, id_cols="sample_id"):
     """
     Read 1 corresponds with i5 end of read, and rows on plate
     Read 2 corresponds with i7 end of read, and columns on plate
@@ -20,9 +20,15 @@ def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False,
     Generates 1 output file containing all data.
     Generates a barcodes file for each plate.
 
-    Use the reverse options if you loaded the adapters on to a plate backwards
+    Use the reverse_read1 and reverse_read2 options if you loaded the adapters 
+        on to a plate backwards
 
     Change id_last to False if you want the id in the first column of the barcodes file.
+
+    Change id_cols if you want to use a different column as the sample id in the
+        barcodes file. The default is "sample_id". Argument accepts multiple
+        column name separated by spaces all enclosed in a single set of quotes.
+        The columns will be concatenated.
     """ 
     # Check inputs
     if read1_enzyme not in ["nhei", "clai"]:
@@ -32,10 +38,6 @@ def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False,
         quit("Error: {} not a valid option for read1_enzyme. Choose one of: ecori, bamhi, hindiii")
 
     df = pd.read_csv(input_csv)
-
-    # Old barcode sequence reference not used now 
-    # read1_df = pd.read_table("data/read1-tags.tsv")
-    # read2_df = pd.read_table("data/read2-tags.tsv")
 
     # Get barcodes sequences for different enzymes
     barcodes_df = pd.read_csv("data/barcodes.csv")
@@ -82,6 +84,9 @@ def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False,
     df.to_csv("out.csv", index=False)
     
     # Output barcodes files for stacks/ipyrad 
+    id_cols = id_cols.split() 
+    df["sample_id"] = df[id_cols].apply(lambda row: '_'.join(row.values.astype(str)), axis=1)
+
     if id_last:
         cols = ["read1_barcode_sequence", "read2_barcode_sequence", "sample_id"]
     else:
@@ -94,3 +99,5 @@ def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False,
 
 if __name__ == "__main__":
     fire.Fire(generate_files)
+
+
