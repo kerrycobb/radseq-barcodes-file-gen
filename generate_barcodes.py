@@ -4,7 +4,7 @@ import pandas as pd
 import fire
 
 def generate_files(input_csv, read1_enzyme, read2_enzyme, reverse_read1=False, 
-        reverse_read2=False, id_last=True, id_cols="sample_id"):
+        reverse_read2=False, id_last=False, id_cols="sample_id"):
     """
     Read 1 corresponds with i5 end of read, and rows on plate
     Read 2 corresponds with i7 end of read, and columns on plate
